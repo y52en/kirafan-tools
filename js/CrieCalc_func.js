@@ -44,7 +44,7 @@ function CrieCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
                         　　+ Math.fround(Math.fround(memb4) * Math.fround(1 + 0.4 * Math.fround( Math.min(poss4,5) ) )));
     //クリエ計算
     var result;
-    result = Math.fround(Math.fround(stmF) * Math.fround(awknF) * Math.fround(possF));
+    result = Math.ceil(Math.fround(Math.fround(stmF) * Math.fround(awknF) * Math.fround(possF)));
 
     return result;
 };
