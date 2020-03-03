@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+  <meta charset="UTF-8">
+  <title>きらファンツール</title>
+  <script type="text/javascript" src="./js/CrieCalc_func.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+ </head>
+
+ <body>
+    <header>
+        <!--今のところ空白-->
+    </header> 
+    <main> 
+        <h1>きらファンツール</h1> <br>
+
+        <form onsubmit="return" id="result" 
+        oninput="result.value=CrieCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
+                                      Number(poss4.value),Number(memb5.value),Number(memb4.value),document.getElementById('stmFtype').value);">
+        　<h2>クリエ獲得量計算機(WIP)</h2> <br>
+            
+            <!--入力欄ここから-->
+              <dt>クエストタイプ<select id="stmFtype"></dt>
+            　<option value="stamina">スタミナ</option>
+            　<option value="Gkey">金鍵</option>
+            　<option value="Skey">銀鍵</option>
+            　<option value="Cquest">チャレクエ</option>
+            　<option value="tickets">チケット</option>
+            </select>   <br>
+
+            <div id="input_stm">
+                消費スタミナ<input name="stamina" id="stm_i" type="number" min="0" step="1"><br>
+            </div>
+
+            <!--クエストタイプでスタミナが選択されたときのみ消費スタミナ表示
+             jquery.min.jsを使用してアニメーション付与-->
+            <!--参考：https://memorva.jp/memo/html/javascript_form_input_disabled.php -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script>
+                document.getElementById("stmFtype").addEventListener("change", function(){
+	            var inp_s = document.getElementById("stmFtype");
+	            var selct = inp_s.options[inp_s.selectedIndex].value;
+	
+	            if(selct == "stamina"){
+	            	$("#input_stm").show("normal");
+            	    }else{
+                    $("#input_stm").hide("normal");
+                	}
+                }, false);
+            </script>
+            
+            <!--入力欄続き-->
+            星5所持数 
+            <input name="possesion5" id="poss5" type="number" min="0" step="1"><br>
+            星4所持数
+            <input name="possesion4" id="poss4" type="number" min="0" step="1"><br>
+            編成に入れた星5の数
+            <input name="member5" id="memb5" type="number" min="0" max="5" step="1"> <br>
+             編成に入れた星4の数
+            <input name="member4" id="memb4" type="number" min="0" max="5" step="1"><br>
+            編成の総覚醒数
+            <input name="awakened" id="awkn" type="number" min="0" max="25" step="1"><br>
+            編成に入れた星5のフル覚醒人数
+            <input name="NumOfAwkn" id="N_awkn" type="number" min="0" max="5" step="1"><br>
+           
+
+             <!--計算結果-->
+             <br>クリエ計算結果:<output id="result"></output>
+
+             <small>
+                 <br>全て単作品の場合として入力してください
+                 <br>この計算機は<a href="https://twitter.com/UCieloSereno/status/1233659580309233666">この</a>ツイートを元にして作成しました
+             </small>
+        </form>
+        
+
+            <footer>
+                <br><a href="https://github.com/y52en/y52en.github.io">source code</a>
+                <a href="https://twitter.com/y52en">twitter</a>
+            </footer>
+        
+    </main> 
+ </body>
+
+</html>
