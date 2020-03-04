@@ -2,9 +2,24 @@
 <html lang="ja">
  <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,
+  initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, user-scalable=yes">
   <title>きらファンツール</title>
-  <script type="text/javascript" src="./js/CrieCalc_func.js"></script>
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <!--css動的切り替え 参考:https://www.sejuku.net/blog/55437 -->
+  <link rel="stylesheet" type="text/css" href="./css/style_main.css" id="main file"></link>
+  <link rel="stylesheet" type="text/css" href="./css/style_white.css" id="white" disabled="false"></link>  
+  <link rel="stylesheet" type="text/css" href="./css/style_dark.css" id="dark" disabled="true"></link>
+  <script type="text/javascript" src="./js/CreaCalc_func.js"></script>
+  <script type="text/javascript" src="./js/theme.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159676411-1"></script>
+  <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', 'UA-159676411-1');
+  </script>
  </head>
 
  <body>
@@ -14,28 +29,60 @@
     <main> 
         <h1>きらファンツール</h1> <br>
 
+        <!--すっきりしない…　下のoninputのように一括にしたい-->
+        <form  id="theme">
+            <input type="radio" name="white" id="theme0" value="white" onclick="themechanger('white');" checked/>ノーマル
+            <input type="radio" name="dark" id="theme1" value="dark" onclick="themechanger('dark');"/>ダーク<br>
+        </form>
+        
+        <script>
+            // 何故か上手くいかないのでJqueryに頼る
+           if (theme != "white"){
+              /*  document.getElementsByName("white").checked = false;
+                document.getElementsByName("dark").checked = true;
+            */
+            $('input[value="white"]').prop('checked', false);
+
+            switch(theme){
+                case "dark" :
+                $('input[value="dark"]').prop('checked', true);
+                break;
+            }
+           }    
+        </script>
+
+        <!--output id="theme"></output> -->
+        </form>
+
         <form onsubmit="return" id="result" 
-        oninput="result.value=CrieCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
+        oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
                                       Number(poss4.value),Number(memb5.value),Number(memb4.value),document.getElementById('stmFtype').value);">
         　<h2>クリエ獲得量計算機(WIP)</h2> <br>
             
             <!--入力欄ここから-->
-              <dt>クエストタイプ<select id="stmFtype"></dt>
+              クエストタイプ<select id="stmFtype">
             　<option value="stamina">スタミナ</option>
             　<option value="Gkey">金鍵</option>
             　<option value="Skey">銀鍵</option>
             　<option value="Cquest">チャレクエ</option>
             　<option value="tickets">チケット</option>
+              <option value="bonds">獲得仲良し度</option>
             </select>   <br>
+          <!--  <script>
+                document.getElementById('stmFtype').options[0].selected = true;
+            </script>  -->
 
             <div id="input_stm">
                 消費スタミナ<input name="stamina" id="stm_i" type="number" min="0" step="1"><br>
             </div>
+            <div id="input_bonds">
+                獲得仲良し度<input name="bounds" id="bonds_i" type="number" min="0" step="1"><br>
+            </div>
+            <script>$("#input_bonds").hide(0)</script>
 
             <!--クエストタイプでスタミナが選択されたときのみ消費スタミナ表示
-             jquery.min.jsを使用してアニメーション付与-->
+             Jqueryを使用してアニメーション付与-->
             <!--参考：https://memorva.jp/memo/html/javascript_form_input_disabled.php -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
             <script>
                 document.getElementById("stmFtype").addEventListener("change", function(){
 	            var inp_s = document.getElementById("stmFtype");
@@ -46,7 +93,14 @@
             	    }else{
                     $("#input_stm").hide("normal");
                 	}
+
+                if(selct == "bonds"){
+	            	$("#input_bonds").show("normal");
+            	    }else{
+                    $("#input_bonds").hide("normal");
+                	}
                 }, false);
+
             </script>
             
             <!--入力欄続き-->
@@ -65,10 +119,14 @@
            
 
              <!--計算結果-->
-             <br>クリエ計算結果:<output id="result"></output>
+             <br>クリエ計算結果:<output id="result">0</output>
 
              <small>
-                 <br>全て単作品の場合として入力してください
+                 <br><br>全て単作品の場合として入力してください
+                 <br>クリエ獲得量は仲良し度によって算出されています
+                 <br>もし消費スタミナ数による計算がうまくいかない場合、
+                 <br>仲良し度による計算をお試しください(純粋に計算機のバグの可能性もあります)
+                 <br>
                  <br>この計算機は<a href="https://twitter.com/UCieloSereno/status/1233659580309233666">この</a>ツイートを元にして作成しました
              </small>
         </form>

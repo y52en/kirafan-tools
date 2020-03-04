@@ -1,4 +1,4 @@
-function CrieCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
+function CreaCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
 
      // stmFtypeによってstmに代入する数字を決定
      switch (stmFtype){
@@ -17,9 +17,17 @@ function CrieCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
        case "tickets":
         stm = 35
         break;
+       case "bonds":
+        var bonds = document.getElementById("bonds_i").value;
+        //下の不正チェック回避のために一時的に0にする　不正チェック後10で割る
+        stm = 0
+        break;
      }  ;
 
-    //不正チェック    
+    //不正チェック  
+    if ((stm || awkn || N_awkn || memb4 || memb5 || poss5 || poss4 || bonds )%1 != 0 || 
+        (stm || awkn || N_awkn || memb4 || memb5 || poss5 || poss4 || bonds )    < 0 )
+    {result = "小数、マイナスは入力できません" ; return result};
     if (memb4 + memb5 > 5)
     {result = "編成人数が不正です" ; return result};
     if (awkn > 25)
@@ -31,11 +39,13 @@ function CrieCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
     if (N_awkn > memb5)
     {result = "編成人数よりフル覚醒人数の方が多いです" ; return result};
     if (awkn > memb4*4 + memb5*5 + (5 - memb4 - memb5)*3 )
-    {result = "総覚醒数、または編成人数が不正です" ; return result};
-    if ((stm || awkn || N_awkn || memb4 || memb5 || poss5 || poss4 )%1 != 0 || 
-        (stm || awkn || N_awkn || memb4 || memb5 || poss5 || poss4 )    < 0 )
-    {result = "小数、マイナスは入力できません" ; return result};
-    
+    {result = "総覚醒数、または編成人数が不正です" ; return result}; 
+
+    //ここでstmFtype==bondsの時bondsをstmに変換する
+    if (stmFtype==bonds){
+      stm = bonds / 10
+    };
+
     //ファクター計算
     //Math.froundを使いすぎだと思うが、どこまで必要なのか分からないのでこのまま
     var stmF = Math.fround(Math.fround(stm) * 0.02);

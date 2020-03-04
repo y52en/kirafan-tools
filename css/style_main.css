@@ -20,7 +20,24 @@
   参考：https://qiita.com/chousensha01/items/ed29dd22a022aed058d9
   */
 
+  /*
+  body{
+   background-color :#1E1E1E;
+    color :#cccccc
+  }
 
-  h1{display: inline;}
+  a{
+  color:#9CDCFE
+  }
+
+*/
+
+  output{
+    font-weight : bold
+  }
+
+
+
+ h1{display: inline;}
 
  h2{display: inline;}
