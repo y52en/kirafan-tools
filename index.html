@@ -9,17 +9,11 @@
   <link rel="stylesheet" type="text/css" href="./css/style_main.css" id="main file"></link>
   <link rel="stylesheet" type="text/css" href="./css/style_white.css" id="white" disabled="false"></link>  
   <link rel="stylesheet" type="text/css" href="./css/style_dark.css" id="dark" disabled="true"></link>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript" src="./js/CreaCalc_func.js"></script>
   <script type="text/javascript" src="./js/theme.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159676411-1"></script>
-  <script>
-     window.dataLayer = window.dataLayer || [];
-     function gtag(){dataLayer.push(arguments);}
-     gtag('js', new Date());
-     gtag('config', 'UA-159676411-1');
-  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159676411-1"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', 'UA-159676411-1');</script>
  </head>
 
  <body>
@@ -27,12 +21,12 @@
         <!--今のところ空白-->
     </header> 
     <main> 
-        <h1>きらファンツール</h1> <br>
+        <h1>きらファンツール</h1><br>
 
-        <!--すっきりしない…　下のoninputのように一括にしたい-->
+        <!--すっきりしない…下のoninputのように一括にしたい-->
         <form  id="theme">
             <input type="radio" name="white" id="theme0" value="white" onclick="themechanger('white');" checked/>ノーマル
-            <input type="radio" name="dark" id="theme1" value="dark" onclick="themechanger('dark');"/>ダーク<br>
+            <input type="radio" name="dark" id="theme1" value="dark" onclick="themechanger('dark');"/>ダーク
         </form>
         
         <script>
@@ -50,24 +44,53 @@
             }
            }    
         </script>
+        <!--入力欄ここから-->
+        <select id="SwitchTools">
+            <option value="CreaCalc">クリエ獲得量計算機</option>
+            <option value="StmCalc">スタミナ計算機</option>
+        </select>   <br>        
+
+
+        <!--計算機切り替え用-->
+        <div id="CreaCalc"> 
 
         <!--output id="theme"></output> -->
-        </form>
 
         <form onsubmit="return" id="result" 
         oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
                                       Number(poss4.value),Number(memb5.value),Number(memb4.value),document.getElementById('stmFtype').value);">
-        　<h2>クリエ獲得量計算機(WIP)</h2> <br>
+        <h2 >クリエ獲得量計算機(WIP)</h2>  <br> 
             
             <!--入力欄ここから-->
               クエストタイプ<select id="stmFtype">
-            　<option value="stamina">スタミナ</option>
-            　<option value="Gkey">金鍵</option>
-            　<option value="Skey">銀鍵</option>
-            　<option value="Cquest">チャレクエ</option>
-            　<option value="tickets">チケット</option>
+              <option value="stamina">スタミナ</option>
+              <option value="Gkey">金鍵</option>
+              <option value="Skey">銀鍵</option>
+              <option value="Cquest">チャレクエ</option>
+              <option value="tickets">チケット</option>
               <option value="bonds">獲得仲良し度</option>
             </select>   <br>
+
+
+            <script>
+                document.getElementById("stmFtype").addEventListener("change", function(){
+                var inp_s = document.getElementById("stmFtype");
+                var selct = inp_s.options[inp_s.selectedIndex].value;
+   
+                if(selct == "stamina"){
+                    $("#input_stm").show("normal");
+                    }else{
+                    $("#input_stm").hide("normal");
+                    }
+   
+                if(selct == "bonds"){
+                    $("#input_bonds").show("normal");
+                    }else{
+                    $("#input_bonds").hide("normal");
+                    }
+                }, false);
+           </script>
+   
           <!--  <script>
                 document.getElementById('stmFtype').options[0].selected = true;
             </script>  -->
@@ -130,14 +153,47 @@
                  <br>この計算機は<a href="https://twitter.com/UCieloSereno/status/1233659580309233666">この</a>ツイートを元にして作成しました
              </small>
         </form>
-        
 
-            <footer>
-                <br><a href="https://github.com/y52en/y52en.github.io">source code</a>
-                <a href="https://twitter.com/y52en">twitter</a>
-            </footer>
+        </div>
+
+
+        <!--スタミナ計算、切り替え用-->
+        <div id="StmCalc">
+        <h2>スタミナ計算機(WIP)</h2>  <br> 
+
+
+
         
+        </div>
+
+        <!--切り替え用(Jquery)-->
+        <script>
+            document.getElementById("SwitchTools").addEventListener("change", function(){
+            var inp_s = document.getElementById("SwitchTools");
+            var selct = inp_s.options[inp_s.selectedIndex].value;
+
+            if(selct == "CreaCalc"){
+                $("#CreaCalc").show(0);
+                }else{
+                $("#CreaCalc").hide(0);
+                }
+
+            if(selct == "StmCalc"){
+                $("#StmCalc").show(0);
+                }else{
+                $("#StmCalc").hide(0);
+                }
+            }, false);
+
+            //最初から非表示にするため
+             $("#StmCalc").hide(0);
+       </script>
     </main> 
  </body>
+
+ <footer>
+    <br><a href="https://github.com/y52en/y52en.github.io">source code</a>
+    <a href="https://twitter.com/y52en">twitter</a>
+ </footer>
 
 </html>

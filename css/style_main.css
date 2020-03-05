@@ -40,4 +40,6 @@
 
  h1{display: inline;}
 
- h2{display: inline;}
+ h2{
+   display: inline;
+}

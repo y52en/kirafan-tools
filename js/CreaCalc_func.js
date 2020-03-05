@@ -4,6 +4,8 @@ function CreaCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
      switch (stmFtype){
        case "stamina":
         stm = document.getElementById("stm_i").value; //入力欄の数字を代入
+        //bondsがundefinedで不正チェックに引っかかるのを回避
+        bonds = 0
         break;
        case "Gkey":    
         stm = 40;
@@ -20,6 +22,7 @@ function CreaCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
        case "bonds":
         var bonds = document.getElementById("bonds_i").value;
         //下の不正チェック回避のために一時的に0にする　不正チェック後10で割る
+        //ここ偶然stmがundefinedで不正チェックに引っかかるのを回避してた
         stm = 0
         break;
      }  ;
@@ -40,11 +43,14 @@ function CreaCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
     {result = "編成人数よりフル覚醒人数の方が多いです" ; return result};
     if (awkn > memb4*4 + memb5*5 + (5 - memb4 - memb5)*3 )
     {result = "総覚醒数、または編成人数が不正です" ; return result}; 
+   
 
     //ここでstmFtype==bondsの時bondsをstmに変換する
-    if (stmFtype==bonds){
+    if (stmFtype == "bonds"){
       stm = bonds / 10
     };
+
+
 
     //ファクター計算
     //Math.froundを使いすぎだと思うが、どこまで必要なのか分からないのでこのまま

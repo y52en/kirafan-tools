@@ -1,13 +1,9 @@
-var theme = window.localStorage.getItem("theme");
-themechanger (theme);
-
 function themechanger(theme){
 
     //とりあえず全部無効
     document.getElementById("white").disabled = true;
     document.getElementById("dark").disabled = true;
 
-    //alert(theme)
     //
     if (theme == "dark"){
     document.getElementById("dark").disabled = false;
@@ -20,9 +16,20 @@ function themechanger(theme){
     window.localStorage.setItem('theme', 'white');
     $('input[value="dark"]').prop('checked', false);
     }
+
+}
+
+function ToolSwitcher(){
+
+
+
+}
+    //データ読み取り、関数実行
+    var theme = window.localStorage.getItem("theme");
+    themechanger (theme);
+    
     
 
  /*   formElements.submit.disabled = false;
     formElements.submit.disabled = false;
     formElements.submit.disabled = false; */
-}
