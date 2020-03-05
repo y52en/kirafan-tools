@@ -11,25 +11,26 @@
   <link rel="stylesheet" type="text/css" href="./css/style_dark.css" id="dark" disabled="true"></link>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript" src="./js/CreaCalc_func.js"></script>
+  <script type="text/javascript" src="./js/StmCalc.js"></script>  
   <script type="text/javascript" src="./js/theme.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159676411-1"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', 'UA-159676411-1');</script>
  </head>
 
  <body>
-    <header>
+     <header>
         <!--今のところ空白-->
-    </header> 
-    <main> 
-        <h1>きらファンツール</h1><br>
+     </header> 
+     <main> 
+         <h1>きらファンツール</h1><br>
 
-        <!--すっきりしない…下のoninputのように一括にしたい-->
-        <form  id="theme">
+         <!--すっきりしない…下のoninputのように一括にしたい-->
+         <form  id="theme">
             <input type="radio" name="white" id="theme0" value="white" onclick="themechanger('white');" checked/>ノーマル
             <input type="radio" name="dark" id="theme1" value="dark" onclick="themechanger('dark');"/>ダーク
-        </form>
+         </form>
         
-        <script>
+         <script>
             // 何故か上手くいかないのでJqueryに頼る
            if (theme != "white"){
               /*  document.getElementsByName("white").checked = false;
@@ -43,23 +44,25 @@
                 break;
             }
            }    
-        </script>
-        <!--入力欄ここから-->
-        <select id="SwitchTools">
+         </script>
+         <!--入力欄ここから-->
+         <select id="SwitchTools" onsubmit="return" oninput="ToolSwitcher(document.getElementById('SwitchTools').value);" >
             <option value="CreaCalc">クリエ獲得量計算機</option>
             <option value="StmCalc">スタミナ計算機</option>
-        </select>   <br>        
+         </select>   <br> 
+        
 
 
-        <!--計算機切り替え用-->
-        <div id="CreaCalc"> 
 
-        <!--output id="theme"></output> -->
+         <!--計算機切り替え用-->
+         <div id="CreaCalc"> 
 
-        <form onsubmit="return" id="result" 
-        oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
+         <!--output id="theme"></output> -->
+
+         <form onsubmit="return" id="result" 
+         oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
                                       Number(poss4.value),Number(memb5.value),Number(memb4.value),document.getElementById('stmFtype').value);">
-        <h2 >クリエ獲得量計算機(WIP)</h2>  <br> 
+         <h2>クリエ獲得量計算機(WIP)</h2>  <br> 
             
             <!--入力欄ここから-->
               クエストタイプ<select id="stmFtype">
@@ -124,21 +127,21 @@
                 	}
                 }, false);
 
-            </script>
+             </script>
             
-            <!--入力欄続き-->
-            星5所持数 
-            <input name="possesion5" id="poss5" type="number" min="0" step="1"><br>
-            星4所持数
-            <input name="possesion4" id="poss4" type="number" min="0" step="1"><br>
-            編成に入れた星5の数
-            <input name="member5" id="memb5" type="number" min="0" max="5" step="1"> <br>
+             <!--入力欄続き-->
+             星5所持数 
+             <input name="possesion5" id="poss5" type="number" min="0" step="1"><br>
+             星4所持数
+             <input name="possesion4" id="poss4" type="number" min="0" step="1"><br>
+             編成に入れた星5の数
+             <input name="member5" id="memb5" type="number" min="0" max="5" step="1"> <br>
              編成に入れた星4の数
-            <input name="member4" id="memb4" type="number" min="0" max="5" step="1"><br>
-            編成の総覚醒数
-            <input name="awakened" id="awkn" type="number" min="0" max="25" step="1"><br>
-            編成に入れた星5のフル覚醒人数
-            <input name="NumOfAwkn" id="N_awkn" type="number" min="0" max="5" step="1"><br>
+             <input name="member4" id="memb4" type="number" min="0" max="5" step="1"><br>
+             編成の総覚醒数
+             <input name="awakened" id="awkn" type="number" min="0" max="25" step="1"><br>
+             編成に入れた星5のフル覚醒人数
+             <input name="NumOfAwkn" id="N_awkn" type="number" min="0" max="5" step="1"><br>
            
 
              <!--計算結果-->
@@ -148,26 +151,81 @@
                  <br><br>全て単作品の場合として入力してください
                  <br>クリエ獲得量は仲良し度によって算出されています
                  <br>もし消費スタミナ数による計算がうまくいかない場合、
-                 <br>仲良し度による計算をお試しください(純粋に計算機のバグの可能性もあります)
+                 <br>獲得仲良し度で計算してください　<wbr>例:負けイベントのアルシーヴなど
+                 <br>(純粋に計算機のバグの可能性もあります)
                  <br>
                  <br>この計算機は<a href="https://twitter.com/UCieloSereno/status/1233659580309233666">この</a>ツイートを元にして作成しました
              </small>
+         </form>
+
+         </div>
+
+
+         <!--スタミナ計算、切り替え用div-->
+         <div id="StmCalc">
+         <h2>スタミナ計算機(WIP)</h2>  <br> 
+
+         <form onsubmit="return" id="result_Stm" 
+         oninput="//total.value=StmCalc_t(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),
+                  //                      Number(Gkey.value),Number(Skey.value));
+                  Archive.value=StmCalc_a(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                  Fennel.value=StmCalc_f(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                  Hakka.value=StmCalc_h(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                /*  ConvSt.value=ConvSt(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));*/">
+             現在ランク
+             <input name="Rank" id="Rank" type="number" min="1" max="120" step="1" value="1"><br>            
+             金時計 
+             <input name="Gwatch" id="Gwatch" type="number" min="0" step="1"><br>
+             銀時計
+             <input name="Swatch" id="Swatch" type="number" min="0" step="1"><br>
+             銅時計
+             <input name="Bwatch" id="Bwatch" type="number" min="0" step="1"><br>
+             金鍵
+             <input name="Gkey" id="Gkey" type="number" min="0" step="1"><br>
+             銀鍵
+             <input name="Skey" id="Skey" type="number" min="0" step="1"><br>
+             
+
+             <!--計算結果-->
+             <p>時計を全てスタミナに換算すると:<output id="ConvSt">0</output><br>
+                アルシーヴ戦で得られる経験値:<output id="Archive">0</output><br>
+                フェンネル戦で得られる経験値:<output id="Fennel">0</output><br>
+                ハッカ戦で得られる経験値:<output id="Hakka">0</output></p>
+
+
         </form>
-
-        </div>
-
-
-        <!--スタミナ計算、切り替え用-->
-        <div id="StmCalc">
-        <h2>スタミナ計算機(WIP)</h2>  <br> 
-
-
-
         
-        </div>
+         </div>
 
         <!--切り替え用(Jquery)-->
         <script>
+        
+        //関数
+        function ToolSwitcher(tools){
+    
+                $('#SwitchTools').val(tools);
+               window.localStorage.setItem('tools', tools);
+           
+           }
+           
+           //初回読み込み時用
+           var tools = window.localStorage.getItem("tools");
+           ToolSwitcher (tools);
+
+           if(tools == "CreaCalc"){
+                $("#CreaCalc").show(0);
+                }else{
+                $("#CreaCalc").hide(0);
+            }
+
+            if(tools == "StmCalc"){
+                $("#StmCalc").show(0);
+                }else{
+                $("#StmCalc").hide(0);
+                }
+
+            //変化時動作
+
             document.getElementById("SwitchTools").addEventListener("change", function(){
             var inp_s = document.getElementById("SwitchTools");
             var selct = inp_s.options[inp_s.selectedIndex].value;
@@ -183,10 +241,10 @@
                 }else{
                 $("#StmCalc").hide(0);
                 }
-            }, false);
+            }, false);  
 
             //最初から非表示にするため
-             $("#StmCalc").hide(0);
+            // $("#StmCalc").hide(0);
        </script>
     </main> 
  </body>
@@ -195,5 +253,6 @@
     <br><a href="https://github.com/y52en/y52en.github.io">source code</a>
     <a href="https://twitter.com/y52en">twitter</a>
  </footer>
+
 
 </html>

@@ -19,15 +19,13 @@ function themechanger(theme){
 
 }
 
-function ToolSwitcher(){
 
 
 
-}
     //データ読み取り、関数実行
     var theme = window.localStorage.getItem("theme");
     themechanger (theme);
-    
+
     
 
  /*   formElements.submit.disabled = false;

@@ -57,7 +57,7 @@ function CreaCalc(stm, awkn, N_awkn, poss5, poss4, memb5, memb4, stmFtype) {
     var stmF = Math.fround(Math.fround(stm) * 0.02);
     var awknF = Math.fround(Math.fround(awkn) + 25 + Math.fround(N_awkn) * 10);
     var possF = Math.fround(20 + Math.fround(memb5) * Math.fround(7 + Math.min(poss5,5)) 
-                        　　+ Math.fround(Math.fround(memb4) * Math.fround(1 + 0.4 * Math.fround( Math.min(poss4,5) ) )));
+                          + Math.fround(Math.fround(memb4) * Math.fround(1 + 0.4 * Math.fround( Math.min(poss4,5) ) )));
     //クリエ計算
     var result;
     result = Math.ceil(Math.fround(Math.fround(stmF) * Math.fround(awknF) * Math.fround(possF)));
