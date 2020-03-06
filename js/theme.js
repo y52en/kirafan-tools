@@ -24,6 +24,8 @@ function themechanger(theme){
 
     //データ読み取り、関数実行
     var theme = window.localStorage.getItem("theme");
+    if (theme != "white" && theme != "dark"){
+        theme = "white" }
     themechanger (theme);
 
     

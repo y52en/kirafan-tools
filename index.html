@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="./css/style_white.css" id="white" disabled="false"></link>  
   <link rel="stylesheet" type="text/css" href="./css/style_dark.css" id="dark" disabled="true"></link>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/Exp_data.js"></script>
   <script type="text/javascript" src="./js/CreaCalc_func.js"></script>
   <script type="text/javascript" src="./js/StmCalc.js"></script>  
   <script type="text/javascript" src="./js/theme.js"></script>
@@ -62,7 +63,7 @@
          <form onsubmit="return" id="result" 
          oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
                                       Number(poss4.value),Number(memb5.value),Number(memb4.value),document.getElementById('stmFtype').value);">
-         <h2>クリエ獲得量計算機(WIP)</h2>  <br> 
+         <h2>クリエ獲得量計算機</h2>  <br> 
             
             <!--入力欄ここから-->
               クエストタイプ<select id="stmFtype">
@@ -164,16 +165,23 @@
          <!--スタミナ計算、切り替え用div-->
          <div id="StmCalc">
          <h2>スタミナ計算機(WIP)</h2>  <br> 
-
+         
          <form onsubmit="return" id="result_Stm" 
-         oninput="//total.value=StmCalc_t(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),
-                  //                      Number(Gkey.value),Number(Skey.value));
+         oninput="errM.value=errM_fn(1,Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),Number(Gkey.value),Number(Skey.value));
                   Archive.value=StmCalc_a(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   Fennel.value=StmCalc_f(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   Hakka.value=StmCalc_h(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
-                /*  ConvSt.value=ConvSt(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));*/">
+                  ConvSt.value=ConvSt_fn(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                  ToEx.value=ToEx_fn(Number(Rank.value),Number(remEx.value));
+                  //total.value=StmCalc_t(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),
+                  //                      Number(Gkey.value),Number(Skey.value));             
+                  
+                  
+                  
+                  
+                  ">
              現在ランク
-             <input name="Rank" id="Rank" type="number" min="1" max="120" step="1" value="1"><br>            
+             <input name="Rank" id="Rank" type="number" min="1" max="120" step="1"><br>            
              金時計 
              <input name="Gwatch" id="Gwatch" type="number" min="0" step="1"><br>
              銀時計
@@ -181,16 +189,34 @@
              銅時計
              <input name="Bwatch" id="Bwatch" type="number" min="0" step="1"><br>
              金鍵
-             <input name="Gkey" id="Gkey" type="number" min="0" step="1"><br>
+             <input name="Gkey" id="Gkey" type="number" min="0" step="1" placeholder="まだこの項目は未実装です"><br>
              銀鍵
-             <input name="Skey" id="Skey" type="number" min="0" step="1"><br>
-             
+             <input name="Skey" id="Skey" type="number" min="0" step="1" placeholder="まだこの項目は未実装です"><br>
+             次のランクまであと
+             <input name="remEx" id="remEx" type="number" min="1" max="32487130" step="1"><br>
+
+             <!--ランクの値読み取り-->
+             <script>
+                var Rank_s = window.localStorage.getItem("rank");
+                if (Rank_s === null){
+                   Rank_s = "" }
+              $('#Rank').val(Rank_s);
+             </script>             
 
              <!--計算結果-->
-             <p>時計を全てスタミナに換算すると:<output id="ConvSt">0</output><br>
-                アルシーヴ戦で得られる経験値:<output id="Archive">0</output><br>
-                フェンネル戦で得られる経験値:<output id="Fennel">0</output><br>
-                ハッカ戦で得られる経験値:<output id="Hakka">0</output></p>
+             <p><output id="errM"></output></p>
+             <p>時計を全てスタミナに換算すると:<output id="ConvSt"><wbr>0 (0回)</output><br></p>
+
+             <p>アルシーヴ戦で得られる経験値:<output id="Archive"><wbr>0 (0回)</output><br>
+                フェンネル戦で得られる経験値:<output id="Fennel"><wbr>0 (0回)</output><br>
+                ハッカ戦で得られる経験値:<output id="Hakka"><wbr>0 (0回)</output></p>
+                
+             <p>いままで獲得した総経験値:<output id="ToEx"><wbr>0</output></p>
+
+             <p><small>
+                 アルシーヴ戦は8-27、フェンネル戦は8-26、ハッカ戦は7-30で計算しています<br>
+                 因みにランク120までの総経験値数は3'968'067'170
+             </small></p>
 
 
         </form>
@@ -210,6 +236,9 @@
            
            //初回読み込み時用
            var tools = window.localStorage.getItem("tools");
+           if(tools != "CreaCalc" && tools != "StmCalc" ){
+               tools = "CreaCalc"
+           }
            ToolSwitcher (tools);
 
            if(tools == "CreaCalc"){
