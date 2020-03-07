@@ -112,12 +112,12 @@ function ConvSt_fn (rank,gwatch,swatch,bwatch){
 
 function ToEx_fn (rank,remex){
     var a,b;
-    a = rank_te[rank];
-    b = rank_ne[rank + 1] - remex;
+    a = rank_te[rank]; //現ランクまでの経験値所得
+    b = rank_ne[rank] - remex; //次のランクに必要な-残りまで
     if (rank == 120 && remex == 0){
         return a
     }
-    if (a + b <= 0 || rank_ne[rank + 1] < remex || remex <= 0 || rank == 120 && remex != 0){
+    if (a + b < 0 || rank_ne[rank] < remex || remex <= 0 || rank == 120 && remex != 0){
         return "\"次のランクまで\"の値が不正です"
     }
     rtn = (a + b).toLocaleString();
