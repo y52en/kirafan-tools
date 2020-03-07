@@ -171,6 +171,9 @@
                   Archive.value=StmCalc_a(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   Fennel.value=StmCalc_f(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   Hakka.value=StmCalc_h(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                  Archive_h.value=StmCalc_ah(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                  Fennel_h.value=StmCalc_fh(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
+                  Hakka_h.value=StmCalc_hh(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   ConvSt.value=ConvSt_fn(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   ToEx.value=ToEx_fn(Number(Rank.value),Number(remEx.value));
                   //total.value=StmCalc_t(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),
@@ -203,19 +206,46 @@
               $('#Rank').val(Rank_s);
              </script>             
 
+             <p>
+                 <div id="exN_bh">
+                   <button type="button" value="value" onclick="hid_exN()">通常時の経験値を非表示</button>
+                 </div>
+                 <div id="exN_bs">
+                <button type="button" value="value" onclick="shw_exN()">通常時の経験値を表示</button><br>
+                 </div>
+                 <div div id="exH_bh">
+                <button type="button" value="value" onclick="hid_exH()">スタ半時の経験値を非表示</button>
+                 </div>
+                 <div div id="exH_bs">
+                <button type="button" value="value" onclick="shw_exH()">スタ半の経験値を表示</button>
+                 </div>
+             </p>
+
              <!--計算結果-->
              <p><output id="errM"></output></p>
              <p>時計を全てスタミナに換算すると:<output id="ConvSt"><wbr>0 (0回)</output><br></p>
 
-             <p>アルシーヴ戦で得られる経験値:<output id="Archive"><wbr>0 (0回)</output><br>
+             <div id="exN">
+             <p>通常時の時<br>
+                アルシーヴ戦で得られる経験値:<output id="Archive"><wbr>0 (0回)</output><br>
                 フェンネル戦で得られる経験値:<output id="Fennel"><wbr>0 (0回)</output><br>
-                ハッカ戦で得られる経験値:<output id="Hakka"><wbr>0 (0回)</output></p>
+                ハッカ戦で得られる経験値:<output id="Hakka"><wbr>0 (0回)</output>
+             </p>
+             </div>
+
+             <div id="exH">
+              <p>スタ半の時<br>
+                アルシーヴ戦で得られる経験値:<output id="Archive_h"><wbr>0 (0回)</output><br>
+                フェンネル戦で得られる経験値:<output id="Fennel_h"><wbr>0 (0回)</output><br>
+                ハッカ戦で得られる経験値:<output id="Hakka_h"><wbr>0 (0回)</output>
+              </p> 
+             </div>     
                 
              <p>いままで獲得した総経験値:<output id="ToEx"><wbr>0</output></p>
 
              <p><small>
                  アルシーヴ戦は8-27、フェンネル戦は8-26、ハッカ戦は7-30で計算しています<br>
-                 因みにランク120までの総経験値数は3'968'067'170
+                 因みにランク120までの総経験値数は3,968,067,170です
              </small></p>
 
 
@@ -225,6 +255,27 @@
 
         <!--切り替え用(Jquery)-->
         <script>
+        var exN = window.localStorage.getItem("exN");
+        var exH = window.localStorage.getItem("exH");
+        if (exN != "hide" && exN != "show" ){
+               exN = "show"
+        }
+        if (exH != "hide" && exH != "show" ){
+               exH = "show"
+        }           
+
+        if (exN == "show"){
+            shw_exN();
+        }else if (exN == "hide"){
+            hid_exN();
+        }
+
+        if (exH == "show"){
+            shw_exH();
+        }else if (exH == "hide"){
+            hid_exH();
+        }
+
         
         //関数
         function ToolSwitcher(tools){

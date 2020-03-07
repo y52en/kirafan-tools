@@ -62,6 +62,38 @@ function StmCalc_f (rank,gwatch,swatch,bwatch){
     return tEX
 };
 
+function StmCalc_ah (rank,gwatch,swatch,bwatch){
+    fc = 0;
+    flagE = errM_fn(fc,rank,gwatch,swatch,bwatch,0,0);
+    if (flagE == 1){return ""}
+    cs = 13 ; ex = 4000;
+    tEX = RemS(rank,gwatch,swatch,bwatch,cs,ex).toLocaleString()
+          +" ("+ (RemS(rank,gwatch,swatch,bwatch,cs,ex)/ex).toLocaleString() + "回)";
+    return tEX
+};
+
+function StmCalc_hh (rank,gwatch,swatch,bwatch){
+    fc = 0;
+    flagE = errM_fn(fc,rank,gwatch,swatch,bwatch,0,0);
+    if (flagE == 1){return ""}
+    cs = 12 ; ex = 3600;
+    tEX = RemS(rank,gwatch,swatch,bwatch,cs,ex).toLocaleString()
+          +" ("+ (RemS(rank,gwatch,swatch,bwatch,cs,ex)/ex).toLocaleString() + "回)";
+    return tEX
+};
+
+function StmCalc_fh (rank,gwatch,swatch,bwatch){
+    fc = 0;
+    flagE = errM_fn(fc,rank,gwatch,swatch,bwatch,0,0);
+    if (flagE == 1){return "";}
+    cs = 12 ; ex = 3740;
+    tEX = RemS(rank,gwatch,swatch,bwatch,cs,ex).toLocaleString()
+          +" ("+ (RemS(rank,gwatch,swatch,bwatch,cs,ex)/ex).toLocaleString() + "回)";
+    return tEX
+};
+
+
+
 function ConvSt_fn (rank,gwatch,swatch,bwatch){
     fc = 0;
     flagE = errM_fn(fc,rank,gwatch,swatch,bwatch,0,0);
@@ -82,9 +114,48 @@ function ToEx_fn (rank,remex){
     var a,b;
     a = rank_te[rank];
     b = rank_ne[rank + 1] - remex;
-    if (a + b <= 0 || rank_ne[rank + 1] < remex || remex <= 0){
+    if (rank == 120 && remex == 0){
+        return a
+    }
+    if (a + b <= 0 || rank_ne[rank + 1] < remex || remex <= 0 || rank == 120 && remex != 0){
         return "\"次のランクまで\"の値が不正です"
     }
     rtn = (a + b).toLocaleString();
     return rtn;
+}
+
+function hid_exN(){
+    $("#exN").hide(0);
+
+    $("#exN_bh").hide(0);
+    $("#exN_bs").show(0);
+    //状態セーブ
+    window.localStorage.setItem("exN","hide");
+}
+
+function shw_exN(){
+    $("#exN").show(0);
+
+    $("#exN_bh").show(0);
+    $("#exN_bs").hide(0);
+    //状態セーブ
+    window.localStorage.setItem("exN","show");
+}
+
+function hid_exH(){
+    $("#exH").hide(0);
+
+    $("#exH_bh").hide(0);
+    $("#exH_bs").show(0);
+    //状態セーブ
+    window.localStorage.setItem("exH","hide");
+}
+
+function shw_exH(){
+    $("#exH").show(0);
+
+    $("#exH_bh").show(0);
+    $("#exH_bs").hide(0);
+    //状態セーブ
+    window.localStorage.setItem("exH","show");
 }
