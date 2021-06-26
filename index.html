@@ -1,173 +1,175 @@
 <!DOCTYPE html>
 <html lang="ja">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
   initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, user-scalable=yes">
-  <title>きらファンツール</title>
-  <!--css動的切り替え 参考:https://www.sejuku.net/blog/55437 -->
-  <link rel="stylesheet" type="text/css" href="./css/style_main.css" id="main file"></link>
-  <link rel="stylesheet" type="text/css" href="./css/style_white.css" id="white" disabled="false"></link>  
-  <link rel="stylesheet" type="text/css" href="./css/style_dark.css" id="dark" disabled="true"></link>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script type="text/javascript" src="./js/Exp_data.js"></script>
-  <script type="text/javascript" src="./js/CreaCalc_func.js"></script>
-  <script type="text/javascript" src="./js/StmCalc.js"></script>  
-  <script type="text/javascript" src="./js/theme.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159676411-1"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', 'UA-159676411-1');</script>
- </head>
+    <title>きらファンツール</title>
+    <!-- css動的切り替え 参考:https://www.sejuku.net/blog/55437 -->
+    <link rel="stylesheet" type="text/css" href="./css/style_main.css" id="main file" />
+    <link rel="stylesheet" type="text/css" href="./css/style_white.css" id="white" disabled="false" />
+    <link rel="stylesheet" type="text/css" href="./css/style_dark.css" id="dark" disabled="true" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/Exp_data.js"></script>
+    <script type="text/javascript" src="./js/CreaCalc_func.js"></script>
+    <script type="text/javascript" src="./js/StmCalc.js"></script>
+    <script type="text/javascript" src="./js/theme.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159676411-1"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', 'UA-159676411-1');</script>
+</head>
 
- <body>
-     <header>
+<body>
+    <header>
         <!--今のところ空白-->
-     </header> 
-     <main> 
-         <h1>きらファンツール</h1><br>
+    </header>
+    <main>
+        <h1>きらファンツール</h1><br>
 
-         <!--すっきりしない…下のoninputのように一括にしたい-->
-         <form  id="theme">
-            <input type="radio" name="white" id="theme0" value="white" onclick="themechanger('white');" checked/>ノーマル
-            <input type="radio" name="dark" id="theme1" value="dark" onclick="themechanger('dark');"/>ダーク
-         </form>
-        
-         <script>
+        <!--すっきりしない…下のoninputのように一括にしたい-->
+        <form id="theme">
+            <input type="radio" name="white" id="theme0" value="white" onclick="themechanger('white');" checked />ノーマル
+            <input type="radio" name="dark" id="theme1" value="dark" onclick="themechanger('dark');" />ダーク
+        </form>
+
+        <script>
             // 何故か上手くいかないのでJqueryに頼る
-           if (theme != "white"){
-              /*  document.getElementsByName("white").checked = false;
-                document.getElementsByName("dark").checked = true;
-            */
-            $('input[value="white"]').prop('checked', false);
+            if (theme != "white") {
+                /*  document.getElementsByName("white").checked = false;
+                  document.getElementsByName("dark").checked = true;
+              */
+                $('input[value="white"]').prop('checked', false);
 
-            switch(theme){
-                case "dark" :
-                $('input[value="dark"]').prop('checked', true);
-                break;
+                switch (theme) {
+                    case "dark":
+                        $('input[value="dark"]').prop('checked', true);
+                        break;
+                }
             }
-           }    
-         </script>
-         <!--入力欄ここから-->
-         <select id="SwitchTools" onsubmit="return" oninput="ToolSwitcher(document.getElementById('SwitchTools').value);" >
+        </script>
+        <!--入力欄ここから-->
+        <select id="SwitchTools" onsubmit="return"
+            oninput="ToolSwitcher(document.getElementById('SwitchTools').value);">
             <option value="CreaCalc">クリエ獲得量計算機</option>
             <option value="StmCalc">スタミナ計算機</option>
-         </select>   <br> 
-        
+        </select> <br>
 
 
 
-         <!--計算機切り替え用-->
-         <div id="CreaCalc"> 
 
-         <!--output id="theme"></output> -->
-
-         <form onsubmit="return" id="result" 
-         oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
+        <!--計算機切り替え用-->
+        <div id="CreaCalc">
+            <form onsubmit="return" id="result"
+                oninput="result.value=CreaCalc(Number(stm_i.value),Number(awkn.value),Number(N_awkn.value),Number(poss5.value),
                                       Number(poss4.value),Number(memb5.value),Number(memb4.value),document.getElementById('stmFtype').value);">
-         <h2>クリエ獲得量計算機</h2>  <br> 
-            
-            <!--入力欄ここから-->
-              クエストタイプ<select id="stmFtype">
-              <option value="stamina">スタミナ</option>
-              <option value="Gkey">金鍵</option>
-              <option value="Skey">銀鍵</option>
-              <option value="Cquest">チャレクエ</option>
-              <option value="tickets">チケット</option>
-              <option value="bonds">獲得仲良し度</option>
-            </select>   <br>
+                <h2>クリエ獲得量計算機</h2> <br>
+
+                <!--入力欄ここから-->
+                クエストタイプ<select id="stmFtype">
+                    <option value="stamina">スタミナ</option>
+                    <option value="Gkey">金鍵</option>
+                    <option value="Skey">銀鍵</option>
+                    <option value="Cquest">チャレクエ</option>
+                    <option value="tickets">チケット</option>
+                    <option value="bonds">獲得仲良し度</option>
+                </select> <br>
 
 
-            <script>
-                document.getElementById("stmFtype").addEventListener("change", function(){
-                var inp_s = document.getElementById("stmFtype");
-                var selct = inp_s.options[inp_s.selectedIndex].value;
-   
-                if(selct == "stamina"){
-                    $("#input_stm").show("normal");
-                    }else{
-                    $("#input_stm").hide("normal");
-                    }
-   
-                if(selct == "bonds"){
-                    $("#input_bonds").show("normal");
-                    }else{
-                    $("#input_bonds").hide("normal");
-                    }
-                }, false);
-           </script>
-   
-          <!--  <script>
+                <script>
+                    document.getElementById("stmFtype").addEventListener("change", function () {
+                        var inp_s = document.getElementById("stmFtype");
+                        var selct = inp_s.options[inp_s.selectedIndex].value;
+
+                        if (selct == "stamina") {
+                            $("#input_stm").show("normal");
+                        } else {
+                            $("#input_stm").hide("normal");
+                        }
+
+                        if (selct == "bonds") {
+                            $("#input_bonds").show("normal");
+                        } else {
+                            $("#input_bonds").hide("normal");
+                        }
+                    }, false);
+                </script>
+
+                <!--  <script>
                 document.getElementById('stmFtype').options[0].selected = true;
             </script>  -->
 
-            <div id="input_stm">
-                消費スタミナ<input name="stamina" id="stm_i" type="number" min="0" step="1"><br>
-            </div>
-            <div id="input_bonds">
-                獲得仲良し度<input name="bounds" id="bonds_i" type="number" min="0" step="1"><br>
-            </div>
-            <script>$("#input_bonds").hide(0)</script>
+                <div id="input_stm">
+                    消費スタミナ<input name="stamina" id="stm_i" type="number" min="0" step="1"><br>
+                </div>
+                <div id="input_bonds">
+                    獲得仲良し度<input name="bounds" id="bonds_i" type="number" min="0" step="1"><br>
+                </div>
+                <script>
+                    $("#input_bonds").hide(0);
+                </script>
 
-            <!--クエストタイプでスタミナが選択されたときのみ消費スタミナ表示
+                <!--クエストタイプでスタミナが選択されたときのみ消費スタミナ表示
              Jqueryを使用してアニメーション付与-->
-            <!--参考：https://memorva.jp/memo/html/javascript_form_input_disabled.php -->
-            <script>
-                document.getElementById("stmFtype").addEventListener("change", function(){
-	            var inp_s = document.getElementById("stmFtype");
-	            var selct = inp_s.options[inp_s.selectedIndex].value;
-	
-	            if(selct == "stamina"){
-	            	$("#input_stm").show("normal");
-            	    }else{
-                    $("#input_stm").hide("normal");
-                	}
+                <!-- 参考：https://memorva.jp/memo/html/javascript_form_input_disabled.php -->
+                <script>
+                    document.getElementById("stmFtype").addEventListener("change", function () {
+                        var input_staminaFactorType = document.getElementById("stmFtype");
+                        var select = input_staminaFactorType.options[input_staminaFactorType.selectedIndex].value;
 
-                if(selct == "bonds"){
-	            	$("#input_bonds").show("normal");
-            	    }else{
-                    $("#input_bonds").hide("normal");
-                	}
-                }, false);
+                        if (select == "stamina") {
+                            $("#input_stm").show("normal");
+                        } else {
+                            $("#input_stm").hide("normal");
+                        }
 
-             </script>
-            
-             <!--入力欄続き-->
-             星5所持数 
-             <input name="possesion5" id="poss5" type="number" min="0" step="1"><br>
-             星4所持数
-             <input name="possesion4" id="poss4" type="number" min="0" step="1"><br>
-             編成に入れた星5の数
-             <input name="member5" id="memb5" type="number" min="0" max="5" step="1"> <br>
-             編成に入れた星4の数
-             <input name="member4" id="memb4" type="number" min="0" max="5" step="1"><br>
-             編成の総覚醒数
-             <input name="awakened" id="awkn" type="number" min="0" max="25" step="1"><br>
-             編成に入れた星5のフル覚醒人数
-             <input name="NumOfAwkn" id="N_awkn" type="number" min="0" max="5" step="1"><br>
-           
+                        if (select == "bonds") {
+                            $("#input_bonds").show("normal");
+                        } else {
+                            $("#input_bonds").hide("normal");
+                        }
+                    }, false);
 
-             <!--計算結果-->
-             <br>クリエ計算結果:<output id="result">0</output>
+                </script>
 
-             <small>
-                 <br><br>全て単作品の場合として入力してください
-                 <br>クリエ獲得量は仲良し度によって算出されています
-                 <br>もし消費スタミナ数による計算がうまくいかない場合、
-                 <br>獲得仲良し度で計算してください　<wbr>例:負けイベントのアルシーヴなど
-                 <br>(純粋に計算機のバグの可能性もあります)
-                 <br>
-                 <br>この計算機は<a href="https://twitter.com/UCieloSereno/status/1233659580309233666">この</a>ツイートを元にして作成しました
-             </small>
-         </form>
-
-         </div>
+                <!--入力欄続き-->
+                星5所持数
+                <input name="possesion5" id="poss5" type="number" min="0" step="1"><br>
+                星4所持数
+                <input name="possesion4" id="poss4" type="number" min="0" step="1"><br>
+                編成に入れた星5の数
+                <input name="member5" id="memb5" type="number" min="0" max="5" step="1"> <br>
+                編成に入れた星4の数
+                <input name="member4" id="memb4" type="number" min="0" max="5" step="1"><br>
+                編成の総覚醒数
+                <input name="awakened" id="awkn" type="number" min="0" max="25" step="1"><br>
+                編成に入れた星5のフル覚醒人数
+                <input name="NumOfAwkn" id="N_awkn" type="number" min="0" max="5" step="1"><br>
 
 
-         <!--スタミナ計算、切り替え用div-->
-         <div id="StmCalc">
-         <h2>スタミナ計算機(WIP)</h2>  <br> 
-         
-         <form onsubmit="return" id="result_Stm" 
-         oninput="errM.value=errM_fn(1,Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),Number(Gkey.value),Number(Skey.value));
+                <!--計算結果-->
+                <br>クリエ計算結果:<output id="result">0</output>
+
+                <small>
+                    <br><br>全て単作品の場合として入力してください
+                    <br>クリエ獲得量は仲良し度によって算出されています
+                    <br>もし消費スタミナ数による計算がうまくいかない場合、
+                    <br>獲得仲良し度で計算してください　<wbr>例:負けイベントのアルシーヴなど
+                    <br>(純粋に計算機のバグの可能性もあります)
+                    <br>
+                    <br>この計算機は<a
+                        href="https://twitter.com/UCieloSereno/status/1233659580309233666">この</a>ツイートを元にして作成しました
+                </small>
+            </form>
+
+        </div>
+
+
+        <!--スタミナ計算、切り替え用div-->
+        <div id="StmCalc">
+            <h2>スタミナ計算機(WIP)</h2> <br>
+
+            <form onsubmit="return" id="result_Stm" oninput="errM.value=errM_fn(1,Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value),Number(Gkey.value),Number(Skey.value));
                   Archive.value=StmCalc_a(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   Fennel.value=StmCalc_f(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
                   Hakka.value=StmCalc_h(Number(Rank.value),Number(Gwatch.value),Number(Swatch.value),Number(Bwatch.value));
@@ -183,156 +185,157 @@
                   
                   
                   ">
-             現在ランク
-             <input name="Rank" id="Rank" type="number" min="1" max="120" step="1"><br>            
-             金時計 
-             <input name="Gwatch" id="Gwatch" type="number" min="0" step="1"><br>
-             銀時計
-             <input name="Swatch" id="Swatch" type="number" min="0" step="1"><br>
-             銅時計
-             <input name="Bwatch" id="Bwatch" type="number" min="0" step="1"><br>
-             金鍵
-             <input name="Gkey" id="Gkey" type="number" min="0" step="1" placeholder="まだこの項目は未実装です"><br>
-             銀鍵
-             <input name="Skey" id="Skey" type="number" min="0" step="1" placeholder="まだこの項目は未実装です"><br>
-             次のランクまであと
-             <input name="remEx" id="remEx" type="number" min="1" max="32487130" step="1"><br>
+                現在ランク
+                <input name="Rank" id="Rank" type="number" min="1" max="120" step="1"><br>
+                金時計
+                <input name="Gwatch" id="Gwatch" type="number" min="0" step="1"><br>
+                銀時計
+                <input name="Swatch" id="Swatch" type="number" min="0" step="1"><br>
+                銅時計
+                <input name="Bwatch" id="Bwatch" type="number" min="0" step="1"><br>
+                金鍵
+                <input name="Gkey" id="Gkey" type="number" min="0" step="1" placeholder="まだこの項目は未実装です"><br>
+                銀鍵
+                <input name="Skey" id="Skey" type="number" min="0" step="1" placeholder="まだこの項目は未実装です"><br>
+                次のランクまであと
+                <input name="remEx" id="remEx" type="number" min="1" max="32487130" step="1"><br>
 
-             <!--ランクの値読み取り-->
-             <script>
-                var Rank_s = window.localStorage.getItem("rank");
-                if (Rank_s === null){
-                   Rank_s = "" }
-              $('#Rank').val(Rank_s);
-             </script>             
+                <!--ランクの値読み取り-->
+                <script>
+                    var Rank_s = window.localStorage.getItem("rank");
+                    if (Rank_s === null) {
+                        Rank_s = ""
+                    }
+                    $('#Rank').val(Rank_s);
+                </script>
 
-             <p>
-                 <div id="exN_bh">
-                   <button type="button" value="value" onclick="hid_exN()">通常時の経験値を非表示</button>
-                 </div>
-                 <div id="exN_bs">
-                <button type="button" value="value" onclick="shw_exN()">通常時の経験値を表示</button><br>
-                 </div>
-                 <div div id="exH_bh">
-                <button type="button" value="value" onclick="hid_exH()">スタ半時の経験値を非表示</button>
-                 </div>
-                 <div div id="exH_bs">
-                <button type="button" value="value" onclick="shw_exH()">スタ半の経験値を表示</button>
-                 </div>
-             </p>
+                <p>
+                <div id="exN_bh">
+                    <button type="button" value="value" onclick="hid_exN()">通常時の経験値を非表示</button>
+                </div>
+                <div id="exN_bs">
+                    <button type="button" value="value" onclick="shw_exN()">通常時の経験値を表示</button><br>
+                </div>
+                <div id="exH_bh">
+                    <button type="button" value="value" onclick="hid_exH()">スタ半時の経験値を非表示</button>
+                </div>
+                <div id="exH_bs">
+                    <button type="button" value="value" onclick="shw_exH()">スタ半の経験値を表示</button>
+                </div>
+                </p>
 
-             <!--計算結果-->
-             <p><output id="errM"></output></p>
-             <p>時計を全てスタミナに換算すると:<output id="ConvSt"><wbr>0 (0回)</output><br></p>
+                <!--計算結果-->
+                <p><output id="errM"></output></p>
+                <p>時計を全てスタミナに換算すると:<output id="ConvSt"><wbr>0 (0回)</output><br></p>
 
-             <div id="exN">
-             <p>通常時の時<br>
-                アルシーヴ戦で得られる経験値:<output id="Archive"><wbr>0 (0回)</output><br>
-                フェンネル戦で得られる経験値:<output id="Fennel"><wbr>0 (0回)</output><br>
-                ハッカ戦で得られる経験値:<output id="Hakka"><wbr>0 (0回)</output>
-             </p>
-             </div>
+                <div id="exN">
+                    <p>通常時の時<br>
+                        アルシーヴ戦で得られる経験値:<output id="Archive"><wbr>0 (0回)</output><br>
+                        フェンネル戦で得られる経験値:<output id="Fennel"><wbr>0 (0回)</output><br>
+                        ハッカ戦で得られる経験値:<output id="Hakka"><wbr>0 (0回)</output>
+                    </p>
+                </div>
 
-             <div id="exH">
-              <p>スタ半の時<br>
-                アルシーヴ戦で得られる経験値:<output id="Archive_h"><wbr>0 (0回)</output><br>
-                フェンネル戦で得られる経験値:<output id="Fennel_h"><wbr>0 (0回)</output><br>
-                ハッカ戦で得られる経験値:<output id="Hakka_h"><wbr>0 (0回)</output>
-              </p> 
-             </div>     
-                
-             <p>いままで獲得した総経験値:<output id="ToEx"><wbr>0</output></p>
+                <div id="exH">
+                    <p>スタ半の時<br>
+                        アルシーヴ戦で得られる経験値:<output id="Archive_h"><wbr>0 (0回)</output><br>
+                        フェンネル戦で得られる経験値:<output id="Fennel_h"><wbr>0 (0回)</output><br>
+                        ハッカ戦で得られる経験値:<output id="Hakka_h"><wbr>0 (0回)</output>
+                    </p>
+                </div>
 
-             <p><small>
-                 アルシーヴ戦は8-27、フェンネル戦は8-26、ハッカ戦は7-30で計算しています<br>
-                 因みにランク120までの総経験値数は396,806,170です
-             </small></p>
+                <p>いままで獲得した総経験値:<output id="ToEx"><wbr>0</output></p>
+
+                <p><small>
+                        アルシーヴ戦は8-27、フェンネル戦は8-26、ハッカ戦は7-30で計算しています<br>
+                        因みにランク120までの総経験値数は396,806,170です
+                    </small></p>
 
 
-        </form>
-        
-         </div>
+            </form>
+
+        </div>
 
         <!--切り替え用(Jquery)-->
         <script>
-        var exN = window.localStorage.getItem("exN");
-        var exH = window.localStorage.getItem("exH");
-        if (exN != "hide" && exN != "show" ){
-               exN = "show"
-        }
-        if (exH != "hide" && exH != "show" ){
-               exH = "show"
-        }           
+            var exN = window.localStorage.getItem("exN");
+            var exH = window.localStorage.getItem("exH");
+            if (exN != "hide" && exN != "show") {
+                exN = "show"
+            }
+            if (exH != "hide" && exH != "show") {
+                exH = "show"
+            }
 
-        if (exN == "show"){
-            shw_exN();
-        }else if (exN == "hide"){
-            hid_exN();
-        }
+            if (exN == "show") {
+                shw_exN();
+            } else if (exN == "hide") {
+                hid_exN();
+            }
 
-        if (exH == "show"){
-            shw_exH();
-        }else if (exH == "hide"){
-            hid_exH();
-        }
+            if (exH == "show") {
+                shw_exH();
+            } else if (exH == "hide") {
+                hid_exH();
+            }
 
-        
-        //関数
-        function ToolSwitcher(tools){
-    
+
+            //関数
+            function ToolSwitcher(tools) {
+
                 $('#SwitchTools').val(tools);
-               window.localStorage.setItem('tools', tools);
-           
-           }
-           
-           //初回読み込み時用
-           var tools = window.localStorage.getItem("tools");
-           if(tools != "CreaCalc" && tools != "StmCalc" ){
-               tools = "CreaCalc"
-           }
-           ToolSwitcher (tools);
+                window.localStorage.setItem('tools', tools);
 
-           if(tools == "CreaCalc"){
+            }
+
+            //初回読み込み時用
+            var tools = window.localStorage.getItem("tools");
+            if (tools != "CreaCalc" && tools != "StmCalc") {
+                tools = "CreaCalc"
+            }
+            ToolSwitcher(tools);
+
+            if (tools == "CreaCalc") {
                 $("#CreaCalc").show(0);
-                }else{
+            } else {
                 $("#CreaCalc").hide(0);
             }
 
-            if(tools == "StmCalc"){
+            if (tools == "StmCalc") {
                 $("#StmCalc").show(0);
-                }else{
+            } else {
                 $("#StmCalc").hide(0);
-                }
+            }
 
             //変化時動作
 
-            document.getElementById("SwitchTools").addEventListener("change", function(){
-            var inp_s = document.getElementById("SwitchTools");
-            var selct = inp_s.options[inp_s.selectedIndex].value;
+            document.getElementById("SwitchTools").addEventListener("change", function () {
+                var input_s = document.getElementById("SwitchTools");
+                var select = input_s.options[input_s.selectedIndex].value;
 
-            if(selct == "CreaCalc"){
-                $("#CreaCalc").show(0);
-                }else{
-                $("#CreaCalc").hide(0);
+                if (select == "CreaCalc") {
+                    $("#CreaCalc").show(0);
+                } else {
+                    $("#CreaCalc").hide(0);
                 }
 
-            if(selct == "StmCalc"){
-                $("#StmCalc").show(0);
-                }else{
-                $("#StmCalc").hide(0);
+                if (select == "StmCalc") {
+                    $("#StmCalc").show(0);
+                } else {
+                    $("#StmCalc").hide(0);
                 }
-            }, false);  
+            }, false);
 
             //最初から非表示にするため
             // $("#StmCalc").hide(0);
-       </script>
-    </main> 
- </body>
+        </script>
+    </main>
+</body>
 
- <footer>
-    <br><a href="https://github.com/y52en/kirafan-tools/">source code</a>
+<footer>
+    <br><a href="https://y52en.github.io/">作ったものリスト</a>
     <a href="https://twitter.com/y52en">twitter</a>
- </footer>
+</footer>
 
 
 </html>
