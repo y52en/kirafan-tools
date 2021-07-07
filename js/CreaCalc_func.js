@@ -1,5 +1,6 @@
 function CreaCalc(stamina, awaken, Num_of_awaken, possessed_star5, possessed_star4, num_of_member5, number_of_member4, staminaFactorType) {
   // stmFtypeによってstmに代入する数字を決定
+  let bonds;
   switch (staminaFactorType) {
     case "stamina":
       stamina = document.getElementById("stm_i").value; //入力欄の数字を代入
@@ -19,7 +20,7 @@ function CreaCalc(stamina, awaken, Num_of_awaken, possessed_star5, possessed_sta
       stamina = 35;
       break;
     case "bonds":
-      const bonds = document.getElementById("bonds_i").value;
+      bonds = document.getElementById("bonds_i").value;
       //下の不正チェック回避のために一時的に0にする　不正チェック後10で割る
       //ここ偶然stmがundefinedで不正チェックに引っかかるのを回避してた
       stamina = 0;
@@ -67,9 +68,9 @@ function CreaCalc(stamina, awaken, Num_of_awaken, possessed_star5, possessed_sta
 
   //ファクター計算
   //Math.froundを使いすぎだと思うが、どこまで必要なのか分からないのでこのまま
-  const stmF = Math.fround(Math.fround(stamina) * 0.02);
-  const awknF = Math.fround(Math.fround(awaken) + 25 + Math.fround(Num_of_awaken) * 10);
-  const possF = Math.fround(
+  const staminaFactor = Math.fround(Math.fround(stamina) * 0.02);
+  const awakenFactor = Math.fround(Math.fround(awaken) + 25 + Math.fround(Num_of_awaken) * 10);
+  const possesionFactor = Math.fround(
     20 +
       Math.fround(num_of_member5) * Math.fround(7 + Math.min(possessed_star5, 5)) +
       Math.fround(
@@ -79,7 +80,7 @@ function CreaCalc(stamina, awaken, Num_of_awaken, possessed_star5, possessed_sta
   );
   //クリエ計算
   const result = Math.ceil(
-    Math.fround(Math.fround(stmF) * Math.fround(awknF) * Math.fround(possF))
+    Math.fround(Math.fround(staminaFactor) * Math.fround(awakenFactor) * Math.fround(possesionFactor))
   );
 
   return result;
